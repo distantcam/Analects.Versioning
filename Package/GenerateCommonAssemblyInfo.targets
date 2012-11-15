@@ -5,16 +5,16 @@
 
     <CurrentVersion Condition=" '$(CurrentVersion)' == '' ">1.0.0</CurrentVersion>
     <Company Condition=" '$(Company)' == '' ">[COMPANY]</Company>
-    <BuildNumber></BuildNumber>
+    <BuildNumber Condition=" '$(BuildNumber)' == '' ">0</BuildNumber>
     <AssemblyConfig></AssemblyConfig>
-    
+
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">$(MSBuildProjectDirectory)..\..\..\</SolutionDir>
 
     <SafeBuildNumber>$(BuildNumber)</SafeBuildNumber>
     <SafeBuildNumber Condition=" '$(SafeBuildNumber)' == '' ">0</SafeBuildNumber>
 
     <ApplicationVersion>$(CurrentVersion).$(SafeBuildNumber)</ApplicationVersion>
-    
+
     <BuildDependsOn>
       GenerateCommonAssemblyInfo;
       $(BuildDependsOn);
@@ -29,21 +29,20 @@
       <BuildNumber Condition=" '$(AssemblyConfig)' != '' And '$(BuildNumber)' == '0' "></BuildNumber>
       <BuildNumber Condition=" '$(AssemblyConfig)' == '' And '$(BuildNumber)' != '' ">.$(BuildNumber)</BuildNumber>
     </PropertyGroup>
-    
+
     <Time>
       <Output TaskParameter="Year" PropertyName="Year" />
     </Time>
-    <AssemblyInfo 
-      CodeLanguage="CS" 
-      OutputFile="$(SolutionDir)CommonAssemblyInfo.cs" 
-      AssemblyCompany="$(Company)" 
-      AssemblyCopyright="Copyright © $(Company) $(Year)" 
-      AssemblyTrademark="" 
-      AssemblyConfiguration="$(AssemblyConfig)" 
+    <AssemblyInfo
+      CodeLanguage="CS"
+      OutputFile="$(SolutionDir)CommonAssemblyInfo.cs"
+      AssemblyCompany="$(Company)"
+      AssemblyCopyright="Copyright © $(Company) $(Year)"
+      AssemblyTrademark=""
+      AssemblyConfiguration="$(AssemblyConfig)"
       AssemblyVersion="$(CurrentVersion).$(SafeBuildNumber)"
       AssemblyFileVersion="$(CurrentVersion).$(SafeBuildNumber)"
       AssemblyInformationalVersion="$(CurrentVersion)$(AssemblyConfig)$(BuildNumber)"
     />
   </Target>
-
 </Project>
