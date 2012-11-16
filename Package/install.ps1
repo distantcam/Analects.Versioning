@@ -35,15 +35,16 @@ function Copy-MSBuildTasks ( $project )
 {
     $solutionDir = Get-SolutionDir
     $tasksToolsPath = (Join-Path $solutionDir "Build")
+    $targetPath = (Join-Path $toolsPath "GenerateCommonAssemblyInfo.targets")
 
     if(!(Test-Path $tasksToolsPath)) {
         mkdir $tasksToolsPath | Out-Null
     }
 
-	if(!(Test-Path "$toolsPath\GenerateCommonAssemblyInfo.targets")) {
-		Write-Host "Copying Targets files to $tasksToolsPath"
-		Copy-Item "$toolsPath\GenerateCommonAssemblyInfo.targets" $tasksToolsPath -Force | Out-Null
-	}
+    if(!(Test-Path (Join-Path $tasksToolsPath "GenerateCommonAssemblyInfo.targets"))) {
+        Write-Host "Copying Targets files to $tasksToolsPath"
+        Copy-Item $targetPath $tasksToolsPath -Force | Out-Null
+    }
 
     Write-Host "Don't forget to commit the Build folder"
     return '$(SolutionDir)\Build'
